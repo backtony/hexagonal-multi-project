@@ -275,7 +275,7 @@ dependencies {
 ```
 
 ### common-library 프로젝트
-common-library는 생략하겠습니다. 자세한 코드는 [github]()를 참고 바랍니다.
+common-library는 생략하겠습니다. 자세한 코드는 [github](https://github.com/backtony/hexagonal-multi-project)를 참고 바랍니다.
 
 ### sample-service 프로젝트
 ```shell
