@@ -352,7 +352,7 @@ plugins {
 dependencies {
     api(project(":domain"))
     implementation("com.sample.hexagonal.common:kafka-producer")
-    implementation("com.sample.hexagonal.common:exception")
+    implementation("com.sample.hexagonal.common:utils")
     implementation("com.sample.hexagonal.common:kafka-producer")
 
     implementation("org.springframework.data:spring-data-commons")
@@ -522,7 +522,7 @@ dependencies {
     implementation("com.sample.hexagonal.common:utils")
     implementation("com.sample.hexagonal.common:json")
     implementation("com.sample.hexagonal.common:kafka-producer")
-    implementation("com.sample.hexagonal.common:exception")
+    implementation("com.sample.hexagonal.common:utils")
 }
 
 // 생략

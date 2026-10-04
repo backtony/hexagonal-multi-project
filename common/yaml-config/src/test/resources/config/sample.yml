@@ -1,0 +1,7 @@
+common: always
+---
+spring.config.activate.on-profile: local
+profiled: local
+---
+spring.config.activate.on-profile: [dev, prod]
+profiled: remote

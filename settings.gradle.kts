@@ -1,3 +1,23 @@
+rootProject.name = "splearn"
+
+include("domain")
+include("application")
+
+include("adapter:inbound:controller")
+include("adapter:inbound:listener")
+
+include("adapter:outbound:repository")
+include("adapter:outbound:security")
+include("adapter:outbound:email")
+include("adapter:outbound:producer")
+
+include("infrastructure:h2")
+include("infrastructure:kafka-consumer")
+include("infrastructure:kafka-producer")
+
+include("server:api")
+include("server:consumer")
+include("architecture-test")
+
 includeBuild("build-plugin")
-includeBuild("common-library")
-includeBuild("sample-service")
+includeBuild("common")

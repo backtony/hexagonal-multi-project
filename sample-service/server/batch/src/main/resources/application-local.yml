@@ -1,3 +1,0 @@
-logging:
-  config: classpath:log/logback-env-local.xml
-

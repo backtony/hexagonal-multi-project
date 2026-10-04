@@ -1,0 +1,16 @@
+server:
+  shutdown: graceful
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: splearn-consumer
+---
+spring.config.activate.on-profile: local
+
+logging:
+  config: classpath:log/logback-env-local.xml
+
+server:
+  port: 7072

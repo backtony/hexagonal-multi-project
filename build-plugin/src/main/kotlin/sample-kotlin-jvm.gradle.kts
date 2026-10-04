@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
@@ -9,6 +10,7 @@ plugins {
     id("org.jetbrains.kotlinx.kover")
     // for implementation, java, etc..
     id("java-library")
+    `java-test-fixtures`
 
     kotlin("jvm")
     kotlin("kapt")
@@ -18,26 +20,30 @@ repositories {
     mavenCentral()
 }
 
+// Spring Boot BOM이 kotlin 의존성을 자체 버전으로 내리지 않도록 플러그인 버전으로 고정
+extra["kotlin.version"] = getKotlinPluginVersion()
+
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
 }
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+    implementation("io.github.oshai:kotlin-logging-jvm:8.0.4")
 
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.8.0")
-    testImplementation("io.kotest:kotest-assertions-core-jvm:5.8.0")
-    testImplementation("io.kotest:kotest-framework-datatest:5.8.0")
-    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:6.2.5")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:6.2.5")
+    testImplementation("io.mockk:mockk:1.14.11")
+
+    testFixturesImplementation("org.instancio:instancio-core:6.1.0")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
@@ -54,10 +60,12 @@ ktlint {
 }
 
 // https://github.com/Kotlin/kotlinx-kover/blob/main/kover-gradle-plugin/examples/jvm/defaults/build.gradle.kts
-koverReport {
-    filters {
-        includes {
-            classes("com.sample.hexagonal.*")
+kover {
+    reports {
+        filters {
+            includes {
+                classes("com.sample.hexagonal.*")
+            }
         }
     }
 }

@@ -1,0 +1,13 @@
+server:
+  shutdown: graceful
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: splearn-api
+---
+spring.config.activate.on-profile: local
+
+logging:
+  config: classpath:log/logback-env-local.xml
