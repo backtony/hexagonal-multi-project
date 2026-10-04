@@ -1,6 +1,7 @@
 package com.sample.hexagonal.common.yaml
 
 import io.kotest.core.spec.style.StringSpec
+import org.springframework.boot.SpringApplication
 import io.kotest.matchers.shouldBe
 import org.springframework.core.env.MapPropertySource
 import org.springframework.core.env.StandardEnvironment
@@ -9,7 +10,7 @@ class ModuleConfigEnvironmentPostProcessorTest :
     StringSpec({
         fun environment(vararg profiles: String) = StandardEnvironment().apply {
             setActiveProfiles(*profiles)
-            ModuleConfigEnvironmentPostProcessor().postProcessEnvironment(this, null)
+            ModuleConfigEnvironmentPostProcessor().postProcessEnvironment(this, SpringApplication())
         }
 
         "profile 이 없는 문서는 항상 적용한다" {
@@ -25,7 +26,7 @@ class ModuleConfigEnvironmentPostProcessorTest :
         "기존 설정보다 우선하지 않는다" {
             val environment = StandardEnvironment().apply {
                 propertySources.addFirst(MapPropertySource("app", mapOf("common" to "app")))
-                ModuleConfigEnvironmentPostProcessor().postProcessEnvironment(this, null)
+                ModuleConfigEnvironmentPostProcessor().postProcessEnvironment(this, SpringApplication())
             }
 
             environment.getProperty("common") shouldBe "app"

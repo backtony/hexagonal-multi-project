@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.spring")
 }
 
-extra["springCloudVersion"] = "2025.0.3"
+extra["springCloudVersion"] = "2025.1.3"
 
 dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
@@ -16,7 +16,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.kotest:kotest-extensions-spring:6.2.5")
-    testImplementation("com.ninja-squad:springmockk:4.0.2")
+    testImplementation("com.ninja-squad:springmockk:5.0.1")
 
     testFixturesImplementation("org.springframework.boot:spring-boot-test")
     testFixturesImplementation("org.springframework:spring-context")

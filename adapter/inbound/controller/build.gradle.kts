@@ -7,10 +7,11 @@ plugins {
 dependencies {
     implementation(project(":application"))
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("tools.jackson.module:jackson-module-kotlin")
 
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testImplementation(testFixtures(project(":application")))
 }
 

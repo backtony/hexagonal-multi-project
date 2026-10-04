@@ -8,6 +8,7 @@ dependencies {
     runtimeOnly("com.sample.hexagonal.common:yaml-config")
 
     runtimeOnly("com.h2database:h2")
+    runtimeOnly("org.springframework.boot:spring-boot-h2console")
 }
 
 tasks.getByName<BootJar>("bootJar") {

@@ -1,6 +1,6 @@
 package com.sample.hexagonal.splearn.adapter.inbound.controller.member
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.json.JsonMapper
 import com.ninjasquad.springmockk.MockkBean
 import com.sample.hexagonal.splearn.adapter.inbound.controller.member.MemberController
 import com.sample.hexagonal.splearn.application.service.member.port.inbound.MemberRegister
@@ -10,7 +10,7 @@ import com.sample.hexagonal.splearn.domain.member.DuplicateEmailException
 import io.kotest.core.spec.style.StringSpec
 import io.mockk.every
 import io.mockk.verify
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.post
 @WebMvcTest(MemberController::class)
 class MemberApiWebMvcTest(
     mockMvc: MockMvc,
-    objectMapper: ObjectMapper,
+    objectMapper: JsonMapper,
     @MockkBean val memberRegister: MemberRegister,
 ) : StringSpec({
     "register" {

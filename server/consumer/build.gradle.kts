@@ -11,5 +11,5 @@ dependencies {
     runtimeOnly(project(":infrastructure:h2"))
     runtimeOnly("com.sample.hexagonal.common:actuator")
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
 }

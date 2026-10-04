@@ -8,7 +8,7 @@ dependencies {
     runtimeOnly("com.sample.hexagonal.common:yaml-config")
     implementation("com.sample.hexagonal.common:json")
 
-    api("org.springframework.kafka:spring-kafka")
+    api("org.springframework.boot:spring-boot-starter-kafka")
     implementation("io.micrometer:micrometer-core")
 }
 

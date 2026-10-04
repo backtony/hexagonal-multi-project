@@ -2,8 +2,8 @@ import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 plugins {
     id("sample-kotlin-jvm")
-    kotlin("plugin.jpa") version "2.2.21"
-    kotlin("plugin.allopen") version "2.2.21"
+    kotlin("plugin.jpa") version "2.3.21"
+    kotlin("plugin.allopen") version "2.3.21"
 }
 
 allOpen {

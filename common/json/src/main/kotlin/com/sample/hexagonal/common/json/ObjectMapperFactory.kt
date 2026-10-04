@@ -1,16 +1,16 @@
 package com.sample.hexagonal.common.json
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.databind.DeserializationFeature
+import tools.jackson.databind.SerializationFeature
+import tools.jackson.databind.cfg.DateTimeFeature
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.jacksonMapperBuilder
 
 object ObjectMapperFactory {
 
-    fun create(): ObjectMapper = jacksonObjectMapper()
-        .registerModule(JavaTimeModule())
-        .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-        .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+    fun create(): JsonMapper = jacksonMapperBuilder()
+        .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+        .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .build()
 }

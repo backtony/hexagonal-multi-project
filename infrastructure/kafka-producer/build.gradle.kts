@@ -9,7 +9,7 @@ dependencies {
     implementation("com.sample.hexagonal.common:json")
     implementation("com.sample.hexagonal.common:utils")
 
-    api("org.springframework.kafka:spring-kafka")
+    api("org.springframework.boot:spring-boot-starter-kafka")
     implementation("io.micrometer:micrometer-core")
 }
 

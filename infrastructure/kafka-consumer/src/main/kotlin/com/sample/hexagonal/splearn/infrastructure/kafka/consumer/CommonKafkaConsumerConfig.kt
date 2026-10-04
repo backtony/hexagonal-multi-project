@@ -6,8 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.common.serialization.Deserializer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties
-import org.springframework.boot.ssl.SslBundles
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.EnableKafka
@@ -21,10 +20,10 @@ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer
 import org.springframework.kafka.listener.ConsumerRecordRecoverer
 import org.springframework.kafka.listener.ContainerProperties
 import org.springframework.kafka.listener.DefaultErrorHandler
-import org.springframework.kafka.support.mapping.DefaultJackson2JavaTypeMapper
-import org.springframework.kafka.support.mapping.Jackson2JavaTypeMapper
+import org.springframework.kafka.support.mapping.DefaultJacksonJavaTypeMapper
+import org.springframework.kafka.support.mapping.JacksonJavaTypeMapper
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-import org.springframework.kafka.support.serializer.JsonDeserializer
+import org.springframework.kafka.support.serializer.JacksonJsonDeserializer
 import org.springframework.util.backoff.FixedBackOff
 
 @EnableKafka
@@ -32,7 +31,6 @@ import org.springframework.util.backoff.FixedBackOff
 class CommonKafkaConsumerConfig(
     private val kafkaProperties: KafkaProperties,
     private val meterRegistry: MeterRegistry,
-    private val sslBundles: SslBundles,
     private val commonConsumerRecordRecoverer: ConsumerRecordRecoverer,
 ) {
 
@@ -42,7 +40,7 @@ class CommonKafkaConsumerConfig(
         commonErrorHandler: CommonErrorHandler,
     ): KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Any>> =
         ConcurrentKafkaListenerContainerFactory<String, Any>().apply {
-            consumerFactory = commonConsumerFactory
+            setConsumerFactory(commonConsumerFactory)
             setCommonErrorHandler(commonErrorHandler)
         }
 
@@ -52,7 +50,7 @@ class CommonKafkaConsumerConfig(
         commonErrorHandler: CommonErrorHandler,
     ): ConcurrentKafkaListenerContainerFactory<String, *> {
         val factory = ConcurrentKafkaListenerContainerFactory<String, Any>()
-        factory.consumerFactory = consumerFactory
+        factory.setConsumerFactory(consumerFactory)
         factory.containerProperties.ackMode = ContainerProperties.AckMode.MANUAL
         factory.setCommonErrorHandler(commonErrorHandler)
         return factory
@@ -72,22 +70,22 @@ class CommonKafkaConsumerConfig(
     fun commonErrorHandler(): CommonErrorHandler = DefaultErrorHandler(commonConsumerRecordRecoverer, FixedBackOff(1000L, 3L))
 
     private fun getJsonValueDeserializer(): Deserializer<Any> {
-        val jsonDeserializer = JsonDeserializer<Any>(ObjectMapperFactory.create()).apply {
-            this.typeMapper = getJackson2JavaTypeMapper()
+        val jsonDeserializer = JacksonJsonDeserializer<Any>(ObjectMapperFactory.create()).apply {
+            this.typeMapper = getJacksonJavaTypeMapper()
         }
         return ErrorHandlingDeserializer(jsonDeserializer)
     }
 
-    private fun getJackson2JavaTypeMapper(): Jackson2JavaTypeMapper = DefaultJackson2JavaTypeMapper()
+    private fun getJacksonJavaTypeMapper(): JacksonJavaTypeMapper = DefaultJacksonJavaTypeMapper()
         .apply {
-            typePrecedence = Jackson2JavaTypeMapper.TypePrecedence.TYPE_ID
+            typePrecedence = JacksonJavaTypeMapper.TypePrecedence.TYPE_ID
             addTrustedPackages("com.sample.hexagonal.*")
         }
 
-    private fun getCommonConsumerConfigs(): Map<String, Any> = kafkaProperties.buildConsumerProperties(sslBundles)
+    private fun getCommonConsumerConfigs(): Map<String, Any> = kafkaProperties.buildConsumerProperties()
         .apply { put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, LoggingConsumerInterceptor::class.java.name) }
 
-    private fun getManualAckConsumerConfigs(): Map<String, Any> = kafkaProperties.buildConsumerProperties(sslBundles)
+    private fun getManualAckConsumerConfigs(): Map<String, Any> = kafkaProperties.buildConsumerProperties()
         .apply {
             put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, LoggingConsumerInterceptor::class.java.name)
             put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false")
