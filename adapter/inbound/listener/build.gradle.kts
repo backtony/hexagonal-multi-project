@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(":application"))
-    implementation(project(":infrastructure:kafka-consumer"))
+    implementation(project(":infrastructure:kafka"))
 }
 
 tasks.getByName<BootJar>("bootJar") {

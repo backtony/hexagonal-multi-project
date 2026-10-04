@@ -1,0 +1,21 @@
+namastack:
+  outbox:
+    polling:
+      batch-size: 1000
+      trigger: fixed
+      fixed:
+        interval: 2s
+    retry:
+      max-retries: 3
+      policy: exponential
+      exponential:
+        initial-delay: 2s
+        multiplier: 2.0
+        max-delay: 1m
+    instance:
+      heartbeat-interval: 5s
+      stale-instance-timeout: 30s
+      rebalance-interval: 10s
+    # @OutboxEvent 를 쓰지 않으므로 Spring 기본 multicaster 를 그대로 둔다
+    multicaster:
+      enabled: false

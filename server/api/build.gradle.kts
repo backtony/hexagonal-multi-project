@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     runtimeOnly(project(":adapter:inbound:controller"))
+    runtimeOnly(project(":adapter:inbound:event"))
     runtimeOnly(project(":adapter:outbound:repository"))
     runtimeOnly(project(":adapter:outbound:security"))
     runtimeOnly(project(":adapter:outbound:email"))
@@ -12,4 +13,7 @@ dependencies {
     runtimeOnly("com.sample.hexagonal.common:actuator")
 
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
+
+    testImplementation(testFixtures(project(":application")))
+    testImplementation("org.springframework:spring-tx")
 }

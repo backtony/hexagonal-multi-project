@@ -9,6 +9,7 @@ import com.sample.hexagonal.splearn.application.service.instructor.port.inbound.
 import com.sample.hexagonal.splearn.application.support.event.DomainEventPublisher
 import com.sample.hexagonal.splearn.application.service.course.port.outbound.CourseRepository
 import com.sample.hexagonal.splearn.domain.course.Course
+import com.sample.hexagonal.splearn.domain.course.event.CourseCreatedEvent
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
@@ -29,7 +30,7 @@ class CourseModifyService(
         courseValidator.validateForCreate(instructor, createRequest)
 
         val course = courseRepository.save(Course(instructor, createRequest.title, createRequest.description))
-        course.pullDomainEvents().forEach(domainEventPublisher::publishEvent)
+        domainEventPublisher.publishInternalEvent(CourseCreatedEvent(course.id!!))
 
         return course
     }

@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     runtimeOnly(project(":adapter:inbound:listener"))
+    runtimeOnly(project(":adapter:inbound:event"))
     runtimeOnly(project(":adapter:outbound:repository"))
     runtimeOnly(project(":adapter:outbound:security"))
     runtimeOnly(project(":adapter:outbound:email"))

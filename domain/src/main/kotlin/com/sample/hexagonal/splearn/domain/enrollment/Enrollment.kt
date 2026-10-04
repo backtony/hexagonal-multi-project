@@ -1,7 +1,7 @@
 package com.sample.hexagonal.splearn.domain.enrollment
 
+import com.sample.hexagonal.splearn.domain.AbstractEntity
 import com.sample.hexagonal.splearn.domain.AggregateRoot
-import com.sample.hexagonal.splearn.domain.event.AbstractAggregateRoot
 import com.sample.hexagonal.splearn.domain.course.Course
 import com.sample.hexagonal.splearn.domain.member.Member
 import jakarta.persistence.Column
@@ -20,7 +20,7 @@ import java.time.LocalDateTime
 class Enrollment protected constructor(
     member: Member,
     course: Course,
-) : AbstractAggregateRoot() {
+) : AbstractEntity() {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     val member: Member = member
 

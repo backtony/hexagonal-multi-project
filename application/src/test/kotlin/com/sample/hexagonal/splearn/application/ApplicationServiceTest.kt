@@ -10,5 +10,9 @@ import org.springframework.transaction.annotation.Transactional
 @MustBeDocumented
 @SpringBootTest
 @Transactional
-@Import(SplearnTestConfiguration::class, ApplicationTestDataPreparer::class, RecordingDomainEventPublisher::class)
+@Import(
+    SplearnTestConfiguration::class,
+    ApplicationTestDataPreparer::class,
+    RecordingDomainEventPublisher::class,
+)
 annotation class ApplicationServiceTest

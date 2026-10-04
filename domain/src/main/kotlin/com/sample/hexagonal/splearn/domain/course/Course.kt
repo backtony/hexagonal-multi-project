@@ -1,8 +1,7 @@
 package com.sample.hexagonal.splearn.domain.course
 
+import com.sample.hexagonal.splearn.domain.AbstractEntity
 import com.sample.hexagonal.splearn.domain.AggregateRoot
-import com.sample.hexagonal.splearn.domain.course.event.CourseCreatedEvent
-import com.sample.hexagonal.splearn.domain.event.AbstractAggregateRoot
 import com.sample.hexagonal.splearn.domain.instructor.Instructor
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -12,7 +11,6 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToOne
-import jakarta.persistence.PostPersist
 import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
 
@@ -26,7 +24,7 @@ class Course(
     instructor: Instructor,
     title: String,
     description: String?,
-) : AbstractAggregateRoot() {
+) : AbstractEntity() {
     init {
         instructor.ensureActive()
     }
@@ -45,11 +43,6 @@ class Course(
 
     @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     val detail: CourseDetail = CourseDetail(description)
-
-    @PostPersist
-    protected fun onCreated() {
-        registerEvent(CourseCreatedEvent(id!!))
-    }
 
     fun submitForReview() {
         check(status == CourseStatus.DRAFT) { "DRAFT 상태가 아닙니다" }

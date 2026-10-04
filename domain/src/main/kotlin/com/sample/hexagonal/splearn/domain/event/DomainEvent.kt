@@ -4,6 +4,6 @@ import java.time.LocalDateTime
 
 interface DomainEvent {
     val key: String
-    val aggregateType: AggregateType
+    val aggregateRoot: AggregateRoot
     val registeredDate: LocalDateTime
 }

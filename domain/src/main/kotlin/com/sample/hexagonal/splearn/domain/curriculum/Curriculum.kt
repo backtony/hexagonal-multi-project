@@ -1,7 +1,7 @@
 package com.sample.hexagonal.splearn.domain.curriculum
 
+import com.sample.hexagonal.splearn.domain.AbstractEntity
 import com.sample.hexagonal.splearn.domain.AggregateRoot
-import com.sample.hexagonal.splearn.domain.event.AbstractAggregateRoot
 import com.sample.hexagonal.splearn.domain.course.Course
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
@@ -13,7 +13,7 @@ import java.util.Collections
 
 @AggregateRoot
 @Entity
-class Curriculum(course: Course) : AbstractAggregateRoot() {
+class Curriculum(course: Course) : AbstractEntity() {
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     val course: Course = course
 

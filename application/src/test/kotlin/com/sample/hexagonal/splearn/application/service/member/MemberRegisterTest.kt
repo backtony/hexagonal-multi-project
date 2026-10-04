@@ -46,10 +46,10 @@ class MemberRegisterTest(
     }
 
     "registerPublishesMemberRegisteredEvent" {
-        domainEventPublisher.events.clear()
+        domainEventPublisher.externalEvents.clear()
         val member = memberRegister.register(MemberRequestFixture.createMemberRegisterRequest())
 
-        domainEventPublisher.events.filterIsInstance<MemberRegisteredEvent>()
+        domainEventPublisher.externalEvents.filterIsInstance<MemberRegisteredEvent>()
             .map { it.memberId } shouldContainExactly listOf(member.id)
     }
 

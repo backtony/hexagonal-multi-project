@@ -1,7 +1,7 @@
 package com.sample.hexagonal.splearn.domain.instructor
 
+import com.sample.hexagonal.splearn.domain.AbstractEntity
 import com.sample.hexagonal.splearn.domain.AggregateRoot
-import com.sample.hexagonal.splearn.domain.event.AbstractAggregateRoot
 import com.sample.hexagonal.splearn.domain.member.Member
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -12,7 +12,7 @@ import jakarta.persistence.OneToOne
 
 @AggregateRoot
 @Entity
-class Instructor protected constructor(member: Member) : AbstractAggregateRoot() {
+class Instructor protected constructor(member: Member) : AbstractEntity() {
     @OneToOne(fetch = FetchType.LAZY)
     val member: Member = member
 

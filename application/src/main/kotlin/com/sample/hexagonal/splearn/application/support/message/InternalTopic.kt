@@ -1,6 +1,6 @@
 package com.sample.hexagonal.splearn.application.support.message
 
-import com.sample.hexagonal.splearn.domain.event.AggregateType
+import com.sample.hexagonal.splearn.domain.event.AggregateRoot
 import com.sample.hexagonal.splearn.domain.event.DomainEvent
 
 object InternalTopic {
@@ -10,11 +10,11 @@ object InternalTopic {
     const val CURRICULUM = "CURRICULUM"
     const val ENROLLMENT = "ENROLLMENT"
 
-    fun from(domainEvent: DomainEvent): String = when (domainEvent.aggregateType) {
-        AggregateType.MEMBER -> MEMBER
-        AggregateType.INSTRUCTOR -> INSTRUCTOR
-        AggregateType.COURSE -> COURSE
-        AggregateType.CURRICULUM -> CURRICULUM
-        AggregateType.ENROLLMENT -> ENROLLMENT
+    fun from(domainEvent: DomainEvent): String = when (domainEvent.aggregateRoot) {
+        AggregateRoot.MEMBER -> MEMBER
+        AggregateRoot.INSTRUCTOR -> INSTRUCTOR
+        AggregateRoot.COURSE -> COURSE
+        AggregateRoot.CURRICULUM -> CURRICULUM
+        AggregateRoot.ENROLLMENT -> ENROLLMENT
     }
 }

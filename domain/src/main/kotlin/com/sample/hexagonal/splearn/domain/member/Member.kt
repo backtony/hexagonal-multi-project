@@ -1,8 +1,7 @@
 package com.sample.hexagonal.splearn.domain.member
 
+import com.sample.hexagonal.splearn.domain.AbstractEntity
 import com.sample.hexagonal.splearn.domain.AggregateRoot
-import com.sample.hexagonal.splearn.domain.event.AbstractAggregateRoot
-import com.sample.hexagonal.splearn.domain.member.event.MemberRegisteredEvent
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Embedded
@@ -11,7 +10,6 @@ import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.OneToOne
-import jakarta.persistence.PostPersist
 import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
 
@@ -29,7 +27,7 @@ class Member protected constructor(
     nickname: String,
     passwordHash: String,
     detail: MemberDetail,
-) : AbstractAggregateRoot() {
+) : AbstractEntity() {
     @Embedded
     val email: Email = email
 
@@ -48,11 +46,6 @@ class Member protected constructor(
     @Column(nullable = false, length = 50)
     var status: MemberStatus = MemberStatus.PENDING
         protected set
-
-    @PostPersist
-    protected fun onRegistered() {
-        registerEvent(MemberRegisteredEvent(id!!, email.address))
-    }
 
     fun activate() {
         check(status == MemberStatus.PENDING) { "PENDING 상태가 아닙니다" }

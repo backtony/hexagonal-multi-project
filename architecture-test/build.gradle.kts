@@ -7,6 +7,7 @@ dependencies {
     testImplementation(project(":application"))
     testImplementation(project(":adapter:inbound:controller"))
     testImplementation(project(":adapter:inbound:listener"))
+    testImplementation(project(":adapter:inbound:event"))
     testImplementation(project(":adapter:outbound:repository"))
     testImplementation(project(":adapter:outbound:security"))
     testImplementation(project(":adapter:outbound:email"))

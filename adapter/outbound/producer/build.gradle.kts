@@ -6,7 +6,10 @@ plugins {
 
 dependencies {
     implementation(project(":application"))
-    implementation(project(":infrastructure:kafka-producer"))
+    implementation(project(":infrastructure:kafka"))
+    implementation(platform("io.namastack:namastack-outbox-bom:1.7.3"))
+    implementation("io.namastack:namastack-outbox-starter-jdbc")
+    implementation("io.namastack:namastack-outbox-kafka")
 }
 
 tasks.getByName<BootJar>("bootJar") {

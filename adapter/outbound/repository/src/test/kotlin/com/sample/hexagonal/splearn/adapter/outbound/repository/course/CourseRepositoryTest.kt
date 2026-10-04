@@ -2,7 +2,6 @@ package com.sample.hexagonal.splearn.adapter.outbound.repository.course
 
 import com.sample.hexagonal.splearn.application.service.course.port.outbound.CourseRepository
 import com.sample.hexagonal.splearn.domain.course.CourseFixture
-import com.sample.hexagonal.splearn.domain.course.event.CourseCreatedEvent
 import com.sample.hexagonal.splearn.adapter.outbound.repository.RepositoryTest
 import com.sample.hexagonal.splearn.adapter.outbound.repository.RepositoryTestDataPreparer
 import io.kotest.assertions.throwables.shouldThrow
@@ -20,13 +19,6 @@ class CourseRepositoryTest(
     entityManager: EntityManager,
     preparer: RepositoryTestDataPreparer,
 ) : StringSpec({
-    "saveRegistersCourseCreatedEvent" {
-        val course = courseRepository.save(CourseFixture.createCourse(preparer.prepareActiveInstructor()))
-
-        course.pullDomainEvents().map { (it as CourseCreatedEvent).courseId } shouldBe listOf(course.id)
-        course.pullDomainEvents() shouldBe emptyList()
-    }
-
     "saveAndFindId" {
         val instructor = preparer.prepareActiveInstructor()
 

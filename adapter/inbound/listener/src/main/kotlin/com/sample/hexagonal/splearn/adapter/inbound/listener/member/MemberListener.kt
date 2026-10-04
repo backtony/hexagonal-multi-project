@@ -1,5 +1,6 @@
 package com.sample.hexagonal.splearn.adapter.inbound.listener.member
 
+import com.sample.hexagonal.splearn.application.service.member.port.inbound.MemberNotifier
 import com.sample.hexagonal.splearn.application.support.message.InternalTopic
 import com.sample.hexagonal.splearn.domain.member.event.MemberRegisteredEvent
 import com.sample.hexagonal.splearn.infrastructure.kafka.consumer.KafkaListenerContainFactoryNames
@@ -14,11 +15,12 @@ import org.springframework.stereotype.Component
     topics = [InternalTopic.MEMBER],
     containerFactory = KafkaListenerContainFactoryNames.COMMON,
 )
-class MemberListener {
+class MemberListener(private val memberNotifier: MemberNotifier) {
     private val log = KotlinLogging.logger { }
 
     @KafkaHandler
     fun handleEvent(event: MemberRegisteredEvent) {
         log.info { "Event received : $event" }
+        memberNotifier.sendWelcomeEmail(event.memberId)
     }
 }
