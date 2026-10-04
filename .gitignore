@@ -1,19 +1,63 @@
-.DS_Store
-build
+HELP.md
 .gradle
-node_modules
-dist
-logs
-bin/*
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-# Editor directories and files
-*.iml
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
 .idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.kotlin/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-**/out/*
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+.DS_Store
+/.run/
+/logs/*
+**/*.log
+
+# jenv local java version
+.java-version
+
+# Cursor IDE (deprecated — Claude Code로 통합)
+.cursor/
+
+# Claude Code 개인 설정
+.claude/*.local.*
+.claude/local*
+CLAUDE.local.md
+
+# oh-my-claudecode
+.omc/
+
+# Superpowers 문서
+docs/superpowers/
+
+# Git worktrees
+.worktrees/
