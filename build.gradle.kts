@@ -54,6 +54,6 @@ task("ktlintFormat") {
 }
 
 subprojects {
-    group = "com.sample.hexagonal.splearn"
+    group = "com.sample.hexagonal.sample"
     version = "FIXED"
 }

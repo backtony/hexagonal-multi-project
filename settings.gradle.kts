@@ -1,4 +1,4 @@
-rootProject.name = "splearn"
+rootProject.name = "sample"
 
 include("domain")
 include("application")
@@ -8,8 +8,6 @@ include("adapter:inbound:listener")
 include("adapter:inbound:event")
 
 include("adapter:outbound:repository")
-include("adapter:outbound:security")
-include("adapter:outbound:email")
 include("adapter:outbound:producer")
 
 include("infrastructure:h2")

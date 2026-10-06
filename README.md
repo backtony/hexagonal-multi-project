@@ -1,4 +1,4 @@
-# splearn
+# sample
 
 헥사고날 아키텍처(Ports and Adapters)를 Gradle 멀티 모듈로 구성한 샘플 프로젝트
 
@@ -14,7 +14,7 @@ docker run --name kafka -p 9092:9092 apache/kafka:3.9.0
 ## 모듈 구조
 
 ```
-splearn
+sample
 ├── domain                     # 도메인 모델
 ├── application                # 유스케이스, 포트
 ├── adapter
@@ -24,8 +24,6 @@ splearn
 │   │   └── event              # Spring 애플리케이션 이벤트
 │   └── outbound
 │       ├── repository         # JPA
-│       ├── security           # 비밀번호 암호화
-│       ├── email              # 메일 발송
 │       └── producer           # 도메인 이벤트 발행 (Namastack outbox → Kafka)
 ├── infrastructure
 │   ├── h2                     # DB 설정

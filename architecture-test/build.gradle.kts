@@ -9,8 +9,6 @@ dependencies {
     testImplementation(project(":adapter:inbound:listener"))
     testImplementation(project(":adapter:inbound:event"))
     testImplementation(project(":adapter:outbound:repository"))
-    testImplementation(project(":adapter:outbound:security"))
-    testImplementation(project(":adapter:outbound:email"))
     testImplementation(project(":adapter:outbound:producer"))
     testImplementation("com.tngtech.archunit:archunit:1.4.1")
 }
